@@ -1,0 +1,161 @@
+<div class="form__wrapper">
+    <div class="form-upper flex__wrapper flex-center flex-between">
+        <div class="flex-item__wrapper flex__wrapper flex-center">
+            <button 
+                class="btn-circle"
+                type="button"
+            >
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+        
+            <h2 class="form-title margin-none margin-right-70">Review Contribution</h2>
+        
+            <div class="form-tab__wrapper">
+                <ng-container *ngFor="let item of locationYear">
+                    <button 
+                        type="button"
+                        [class]="'form-tabs ' + item.class"
+                        (click)="tableFilter(item.locationName)"
+                    >
+                        {{ item.locationName }} {{ item.year }}
+                    </button>
+                </ng-container>
+            </div>
+        </div>
+    
+        <div class="flex-item__wrapper">
+            <button class="btn btn-light-gray margin-right-20" type="button">Cancel</button>
+            <button class="btn btn-light-green" type="button">Submit Contributions</button>
+        </div>
+    </div>
+
+    <div class="form-content">
+        <h2 class="form-title margin-y-30">{{ formTitle }}</h2>
+
+        <table
+            class="form-table"
+            cdk-table
+            [dataSource]="dataSource"
+        >
+            <!-- Domain Column -->
+            <ng-container cdkColumnDef="domain">
+                <th
+                    class="form-table__header"
+                    cdk-header-cell
+                    *cdkHeaderCellDef
+                >
+                    Domain
+                </th>
+
+                <td
+                    class="form-table__cell"
+                    cdk-cell
+                    *cdkCellDef="let item"
+                >
+                    {{ item.kpiName }}
+                </td>
+            </ng-container>
+          
+            <!-- KPI Column -->
+            <ng-container cdkColumnDef="kpi">
+                <th
+                    class="form-table__header"
+                    cdk-header-cell
+                    *cdkHeaderCellDef
+                >
+                    KPI
+                </th>
+
+                <td 
+                    class="form-table__cell"
+                    cdk-cell
+                    *cdkCellDef="let item"
+                >
+                    {{ item.kpiLabel }}
+                </td>
+            </ng-container>
+          
+            <!-- New Data Column -->
+            <ng-container cdkColumnDef="newData">
+                <th
+                    class="form-table__header"
+                    cdk-header-cell
+                    *cdkHeaderCellDef
+                >
+                    New Data
+                </th>
+
+                <td
+                    class="form-table__cell"
+                    cdk-cell
+                    *cdkCellDef="let item"
+                    [formGroup]="formGroup"
+                >
+                    <ng-container *ngIf="item.dataAction !== 'edit'">
+                        <span class="form-table__cell-value">
+                            {{ item.newDataValue | number: '1.0' : 'en-US' }}
+                        </span>
+                        <br>
+                        {{ item.natureOfData }}
+
+                        <button
+                            class="btn-circle btn-circle-sm btn-circle-default form-table__cell-btn"
+                            type="button"
+                            (click)="editCell(item.rowIndex, 'newDataValue')"
+                            *ngIf="item.natureOfData !== 'CALCULATED'"
+                        >
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </ng-container>
+
+                    <ng-container *ngIf="item.dataAction === 'edit'">
+                        <input
+                            class="form-table__cell-field"
+                            formControlName="newDataValue"
+                            type="number"
+                        >
+
+                        <button
+                            class="btn-circle btn-circle-sm btn-circle-default btn-circle-close form-table__cell-btn right-50"
+                            type="button"
+                            (click)="cancelEdit(item.rowIndex)"
+                        >
+                            <mat-icon>close</mat-icon>
+                        </button>
+
+                        <button
+                            class="btn-circle btn-circle-sm btn-circle-default form-table__cell-btn"
+                            type="button"
+                            (click)="saveEdit(item.rowIndex, 'newDataValue')"
+                        >
+                            <mat-icon>check</mat-icon>
+                        </button>
+                    </ng-container>
+                </td>
+            </ng-container>
+          
+            <!-- Existing Data Column -->
+            <ng-container cdkColumnDef="existingData">
+                <th
+                    class="form-table__header"
+                    cdk-header-cell
+                    *cdkHeaderCellDef
+                >
+                    Existing Data
+                </th>
+
+                <td
+                    class="form-table__cell"
+                    cdk-cell
+                    *cdkCellDef="let item"
+                >
+                    {{ item.existingValue | number: '1.0' : 'en-US' }} <br>
+                    {{ item.natureOfData }}
+                </td>
+            </ng-container>
+          
+            <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+            <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+    </div>
+</div>
