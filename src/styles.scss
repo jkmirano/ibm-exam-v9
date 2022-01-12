@@ -1,1 +1,146 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$ibm-exam-v9-primary: mat-palette($mat-indigo);
+$ibm-exam-v9-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$ibm-exam-v9-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$ibm-exam-v9-theme: mat-light-theme($ibm-exam-v9-primary, $ibm-exam-v9-accent, $ibm-exam-v9-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($ibm-exam-v9-theme);
+
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body {
+    margin: 0;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+}
+
+// Global codes
+
+// Flex
+.flex {
+    &__wrapper {
+      display: flex;
+    }
+  
+    &-center {
+      justify-content: center;
+      align-items: center;
+    }
+  
+    &-between {
+      justify-content: space-between;
+    }
+  }
+  
+  // Buttons
+  .btn {
+    font-size: 14px;
+    font-weight: 400;
+    width: 175px;
+    padding: 7px 10px;
+  
+    &-circle {
+      width: 32px;
+      padding: 5px 0 1px;
+      margin-right: 10px;
+      color: #55B286;
+      border: 1px solid #55B286;
+      border-radius: 50%;
+      cursor: pointer;
+    
+      & mat-icon {
+          font-size: 18px;
+      }
+  
+      &-sm {
+        width: 24px;
+        height: 24px;
+        padding: 0;
+  
+        & mat-icon {
+          font-size: 14px;
+          height: 24px;
+          padding-top: 4px;
+        }
+      }
+  
+      &-default {
+        color: #333;
+        background-color: #f1f1f1;
+        border: 0;
+  
+        &:hover {
+          color: #1FB582;
+  
+          & mat-icon {
+            height: 24px;
+            padding-top: 4px;
+          }
+        }
+      }
+  
+      &-close:hover {
+        color: #EF4F59;
+      }
+    }
+  
+    &-light {
+      &-gray {
+        color: #040404;
+        background-color: #F1F1F1;
+      }
+  
+      &-green {
+        color: #fff;
+        background-color: #1FB582;
+      }
+    }
+  }
+  
+  // Margins
+  .margin {
+    &-none {
+      margin: 0;
+    }
+  
+    &-right {
+      &-20 {
+        margin-right: 20px;
+      }
+  
+      &-70 {
+        margin-right: 70px;
+      }
+    }
+  
+    &-y-30 {
+      margin: 30px 0;
+    }
+  }
