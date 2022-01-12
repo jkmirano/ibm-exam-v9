@@ -1,0 +1,82 @@
+.form {
+    &-upper {
+        border-bottom: 1px solid #EAEAEA;
+    }
+
+    &-title {
+        font-size: 18px;
+        font-weight: 400;
+        color: #1A1A1A;
+    }
+
+    &-tabs {
+        font-size: 12px;
+        font-weight: 400;
+        color: #333333;
+        padding: 24.5px 15px;
+        cursor: pointer;
+        transition: all ease .5s;
+
+        &.active,
+        &:hover {
+            box-shadow: 0 2px 0 #0B4D4B;
+        }
+    }
+
+    &-table {
+        width: 100%;
+        border-spacing: 0;
+
+        &__header {
+            width: 25%;
+            padding: 9.5px 20px;
+            font-size: 10px;
+            color: #333;
+            background-color: #F1F1F1;
+            text-align: left;
+        }
+
+        &__cell {
+            width: 25%;
+            padding: 7.5px 20px;
+            text-align: left;
+            font-size: 10px;
+            color: #333;
+            border: 1px solid #DEDEDE;
+            border-right: 0;
+            border-top: 0;
+            position: relative;
+
+            &:last-child {
+                border-right: 1px solid #DEDEDE;
+            }
+
+            &-value {
+                color: #1FB582;
+            }
+
+            &-field {
+                font-size: 16px;
+                font-weight: 400;
+                border: 0;
+                margin: 3px 0;
+
+                &:focus-visible {
+                    outline: 0;
+                }
+            }
+
+            &-btn {
+                position: absolute;
+                top: 0;
+                right: 20px;
+                bottom: 0;
+                margin: auto;
+                
+                &.right-50 {
+                  right: 50px;
+                }
+            }
+        }
+    }
+}
