@@ -70,40 +70,52 @@ export class FormComponent implements OnInit {
       const prevItem = index !== 0 ? index - 1 : index;
       const nextItem = index + 1;
 
-      if (prevItem !== index && this.dataFiltered[prevItem].kpiName.includes(kpiName)) {
-        if (
-          this.dataFiltered[prevItem].natureOfData === 'CALCULATED' ||
-          this.dataFiltered[prevItem].natureOfData === 'calculated'
-        ) {
-          this.dataFiltered[prevItem].newDataValue = (this.dataFiltered[prevItem].population / this.dataFiltered[index].newDataValue);
-        } else if (
-          this.dataFiltered[index].natureOfData === 'CALCULATED' ||
-          this.dataFiltered[index].natureOfData === 'calculated'
-        ) {
-          this.dataFiltered[index].newDataValue = (this.dataFiltered[index].population / this.dataFiltered[prevItem].newDataValue);
-        }
+      if (
+        prevItem !== index &&
+        this.dataFiltered[prevItem] !== undefined &&
+        this.dataFiltered[prevItem].kpiName.includes(kpiName) &&
+        this.dataFiltered[prevItem].subCategory1 === this.dataFiltered[index].subCategory1 &&
+        this.dataFiltered[prevItem].subCategory2 === this.dataFiltered[index].subCategory2 &&
+        this.dataFiltered[prevItem].subCategory3 === this.dataFiltered[index].subCategory3
+      ) {
+        this.kpiCalculatedChecker(prevItem, index);
       } else if (
         nextItem !== index &&
         this.dataFiltered[nextItem] !== undefined &&
-        this.dataFiltered[nextItem].kpiName.includes(kpiName)
+        this.dataFiltered[nextItem].kpiName.includes(kpiName) &&
+        this.dataFiltered[nextItem].subCategory1 === this.dataFiltered[index].subCategory1 &&
+        this.dataFiltered[nextItem].subCategory2 === this.dataFiltered[index].subCategory2 &&
+        this.dataFiltered[nextItem].subCategory3 === this.dataFiltered[index].subCategory3
       ) {
-        if (
-          this.dataFiltered[index].natureOfData === 'CALCULATED' ||
-          this.dataFiltered[index].natureOfData === 'calculated'
-        ) {
-          this.dataFiltered[index].newDataValue = (this.dataFiltered[index].population / this.dataFiltered[nextItem].newDataValue);
-        } else if (
-          this.dataFiltered[nextItem].natureOfData === 'CALCULATED' ||
-          this.dataFiltered[nextItem].natureOfData === 'calculated'
-        ) {
-          this.dataFiltered[nextItem].newDataValue = (this.dataFiltered[nextItem].population / this.dataFiltered[index].newDataValue);
-        }
+        this.kpiCalculatedChecker(index, nextItem);
       }
     });
 
     // Assigning new filter data
     this.formTitle = this.dataFiltered[0].locationName;
     this.dataSource.data = this.dataFiltered;
+  }
+
+  kpiCalculatedChecker(index1: number, index2: number) {
+    if (
+      this.dataFiltered[index1].natureOfData === 'CALCULATED' ||
+      this.dataFiltered[index1].natureOfData === 'calculated'
+    ) {
+      this.kpiCalculatedFormula(index1, index2);
+    } else if (
+      this.dataFiltered[index2].natureOfData === 'CALCULATED' ||
+      this.dataFiltered[index2].natureOfData === 'calculated'
+    ) {
+      this.kpiCalculatedFormula(index2, index1);
+    }
+  }
+
+  kpiCalculatedFormula(index1: number, index2: number) {
+    if (this.dataFiltered[index1].kpiName.includes('/Cap/Year')) {
+      this.dataFiltered[index1].newDataValue = (this.dataFiltered[index2].newDataValue / this.dataFiltered[index1].population);
+    } else if (this.dataFiltered[index1].kpiName.includes('/Year')) {
+      this.dataFiltered[index1].newDataValue = (this.dataFiltered[index2].newDataValue * this.dataFiltered[index1].population);
+    }
   }
 
   tableFilter(tableLocation: string) {
