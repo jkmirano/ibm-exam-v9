@@ -66,42 +66,37 @@ export class FormComponent implements OnInit {
 
     // Checker for Actual and Calculated data
     this.dataFiltered.forEach((item: any, index: number) => {
-      if (item.kpiLabel.includes('(tons/year)')) {
-        actualData.push(index);
-      }
-    });
-    actualData.forEach((itemIdx: number) => {
-      const kpiLabel = this.dataFiltered[itemIdx].kpiLabel.replace('(tons/year)', '');
-      const prevItem = itemIdx !== 0 ? itemIdx - 1 : itemIdx;
-      const nextItem = itemIdx + 1;
+      const kpiName = item.kpiName.split('/')[0];
+      const prevItem = index !== 0 ? index - 1 : index;
+      const nextItem = index + 1;
 
-      if (prevItem !== itemIdx && this.dataFiltered[prevItem].kpiLabel.includes(kpiLabel)) {
+      if (prevItem !== index && this.dataFiltered[prevItem].kpiName.includes(kpiName)) {
         if (
           this.dataFiltered[prevItem].natureOfData === 'CALCULATED' ||
           this.dataFiltered[prevItem].natureOfData === 'calculated'
         ) {
-          this.dataFiltered[prevItem].newDataValue = (this.dataFiltered[prevItem].population / this.dataFiltered[itemIdx].newDataValue);
+          this.dataFiltered[prevItem].newDataValue = (this.dataFiltered[prevItem].population / this.dataFiltered[index].newDataValue);
         } else if (
-          this.dataFiltered[itemIdx].natureOfData === 'CALCULATED' ||
-          this.dataFiltered[itemIdx].natureOfData === 'calculated'
+          this.dataFiltered[index].natureOfData === 'CALCULATED' ||
+          this.dataFiltered[index].natureOfData === 'calculated'
         ) {
-          this.dataFiltered[itemIdx].newDataValue = (this.dataFiltered[itemIdx].population / this.dataFiltered[prevItem].newDataValue);
+          this.dataFiltered[index].newDataValue = (this.dataFiltered[index].population / this.dataFiltered[prevItem].newDataValue);
         }
       } else if (
-        nextItem !== itemIdx &&
+        nextItem !== index &&
         this.dataFiltered[nextItem] !== undefined &&
-        this.dataFiltered[nextItem].kpiLabel.includes(kpiLabel)
+        this.dataFiltered[nextItem].kpiName.includes(kpiName)
       ) {
         if (
-          this.dataFiltered[itemIdx].natureOfData === 'CALCULATED' ||
-          this.dataFiltered[itemIdx].natureOfData === 'calculated'
+          this.dataFiltered[index].natureOfData === 'CALCULATED' ||
+          this.dataFiltered[index].natureOfData === 'calculated'
         ) {
-          this.dataFiltered[itemIdx].newDataValue = (this.dataFiltered[itemIdx].population / this.dataFiltered[nextItem].newDataValue);
+          this.dataFiltered[index].newDataValue = (this.dataFiltered[index].population / this.dataFiltered[nextItem].newDataValue);
         } else if (
           this.dataFiltered[nextItem].natureOfData === 'CALCULATED' ||
           this.dataFiltered[nextItem].natureOfData === 'calculated'
         ) {
-          this.dataFiltered[nextItem].newDataValue = (this.dataFiltered[nextItem].population / this.dataFiltered[itemIdx].newDataValue);
+          this.dataFiltered[nextItem].newDataValue = (this.dataFiltered[nextItem].population / this.dataFiltered[index].newDataValue);
         }
       }
     });
