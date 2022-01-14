@@ -109,12 +109,10 @@
                     </ng-container>
 
                     <ng-container *ngIf="item.dataAction === 'edit'">
-                        <input
-                            nz-input
-                            nzSize="default"
+                        <nz-input-number
                             class="form-table__cell-field"
                             formControlName="newDataValue"
-                        >
+                        ></nz-input-number>
 
                         <button
                             class="btn-circle btn-circle-sm btn-circle-default btn-circle-close form-table__cell-btn right-50"
