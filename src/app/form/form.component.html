@@ -104,15 +104,16 @@
                             (click)="editCell(item.rowIndex, 'newDataValue')"
                             *ngIf="item.natureOfData !== 'CALCULATED'"
                         >
-                            <mat-icon>edit</mat-icon>
+                            <i nz-icon nzType="edit" nzTheme="outline"></i>
                         </button>
                     </ng-container>
 
                     <ng-container *ngIf="item.dataAction === 'edit'">
                         <input
+                            nz-input
+                            nzSize="default"
                             class="form-table__cell-field"
                             formControlName="newDataValue"
-                            type="number"
                         >
 
                         <button
@@ -120,7 +121,7 @@
                             type="button"
                             (click)="cancelEdit(item.rowIndex)"
                         >
-                            <mat-icon>close</mat-icon>
+                            <i nz-icon nzType="close" nzTheme="outline"></i>
                         </button>
 
                         <button
@@ -128,7 +129,7 @@
                             type="button"
                             (click)="saveEdit(item.rowIndex, 'newDataValue')"
                         >
-                            <mat-icon>check</mat-icon>
+                            <i nz-icon nzType="check" nzTheme="outline"></i>
                         </button>
                     </ng-container>
                 </td>

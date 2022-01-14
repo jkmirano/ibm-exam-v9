@@ -9,6 +9,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { CdkTableModule } from '@angular/cdk/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NZ_I18N } from 'ng-zorro-antd/i18n';
+import { en_US } from 'ng-zorro-antd/i18n';
+import { registerLocaleData } from '@angular/common';
+import en from '@angular/common/locales/en';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+
+registerLocaleData(en);
 
 @NgModule({
   declarations: [
@@ -23,9 +30,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatTableModule,
     CdkTableModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NzIconModule
   ],
-  providers: [],
+  providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
